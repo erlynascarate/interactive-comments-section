@@ -82,13 +82,13 @@ const ToggleButtons = ({ score }) => {
     )
 }
 
-const Comment = (props) => {
+const Reply = (props) => {
     const {
         content = '',
         createdAt = '',
         score = 0,
         user: { username = '' },
-    } = props.comment
+    } = props.reply
 
     return (
         <Card
@@ -155,4 +155,4 @@ const Comment = (props) => {
     )
 }
 
-export default Comment
+export default Reply
