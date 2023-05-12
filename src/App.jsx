@@ -1,20 +1,43 @@
 import {
+    Container,
     createTheme,
     CssBaseline,
+    List,
     responsiveFontSizes,
     ThemeProvider,
 } from '@mui/material'
+import { useReducer } from 'react'
+import Comment from './components/Comment'
+import data from './data/data.json'
 
 let theme = createTheme({
+    breakpoints: {
+        values: {
+            xs: 0,
+            sm: 600,
+            md: 800,
+            lg: 1200,
+            xl: 1536,
+        },
+    },
     typography: {
         fontFamily: 'Rubik, sans-serif',
     },
     palette: {
+        common: {
+            white: 'hsl(0, 0%, 100%)',
+        },
         primary: {
             main: 'hsl(238, 40%, 52%)',
         },
+        primaryHover: {
+            main: 'hsl(239, 57%, 85%)',
+        },
         warning: {
             main: 'hsl(358, 79%, 66%)',
+        },
+        warningHover: {
+            main: 'hsl(357, 100%, 86%)',
         },
         text: {
             primary: 'hsl(211, 10%, 45%)',
@@ -28,10 +51,31 @@ let theme = createTheme({
 
 theme = responsiveFontSizes(theme)
 
+function commentsReducer(comments, action) {
+    // switch (action.type) {
+    // }
+}
+
 function App() {
+    const [comments, dispatch] = useReducer(commentsReducer, data.comments)
+
     return (
         <ThemeProvider theme={theme}>
             <CssBaseline />
+            <Container
+                sx={{
+                    paddingBlock: 2,
+                    paddingInline: { sm: 2 },
+                }}
+                disableGutters
+                maxWidth='md'
+            >
+                <List>
+                    {comments.map((comment) => (
+                        <Comment key={comment.id} comment={comment} />
+                    ))}
+                </List>
+            </Container>
         </ThemeProvider>
     )
 }
