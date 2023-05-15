@@ -1,8 +1,33 @@
 import { Avatar, Button, Card, CardContent, TextField } from '@mui/material'
 
-const AddComment = () => {
+const AddComment = (props) => {
+    const { addComment, currentUser } = props
+
+    const handleSubmit = (event) => {
+        event.preventDefault()
+
+        const form = event.target
+        const id = crypto.randomUUID()
+        const content = form.content.value
+        const createdAt = new Date()
+
+        const newComment = {
+            id,
+            content,
+            createdAt,
+            score: 0,
+            user: currentUser,
+            replies: [],
+        }
+
+        addComment(newComment)
+
+        form.reset()
+    }
+
     return (
         <Card
+            onSubmit={handleSubmit}
             sx={{
                 marginInline: 2,
                 borderRadius: 3,
@@ -10,6 +35,7 @@ const AddComment = () => {
                 bgcolor: 'common.white',
                 boxShadow: 'none',
             }}
+            component='form'
         >
             <CardContent
                 sx={{
@@ -28,7 +54,9 @@ const AddComment = () => {
                     }}
                     label='Add a comment'
                     multiline
-                    rows={3}
+                    maxRows={5}
+                    minRows={3}
+                    name='content'
                 />
                 <Avatar
                     sx={{
@@ -42,6 +70,7 @@ const AddComment = () => {
                         },
                     }}
                     size='large'
+                    type='submit'
                     variant='contained'
                 >
                     Send

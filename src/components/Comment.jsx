@@ -9,6 +9,7 @@ import {
     ListItem,
     Typography,
 } from '@mui/material'
+import getTimeSinceComment from '../utils/getTimeSinceComment'
 import Reply from './Reply'
 import ReplyButton from './ReplyButton'
 import ToggleButtons from './ToggleButtons'
@@ -22,6 +23,8 @@ const Comment = (props) => {
         user: { username = '' },
     } = props.comment
 
+    const timeAgo = getTimeSinceComment(createdAt)
+
     const thereIsReply = replies.length > 0
 
     return (
@@ -32,11 +35,16 @@ const Comment = (props) => {
                     flexDirection: { xs: 'column', sm: 'row-reverse' },
                     borderRadius: 3,
                     padding: { md: 1 },
+                    inlineSize: '100%',
                     bgcolor: 'common.white',
                     boxShadow: 'none',
                 }}
             >
-                <Box>
+                <Box
+                    sx={{
+                        flexGrow: 1,
+                    }}
+                >
                     <CardHeader
                         sx={{
                             '& .MuiCardHeader-content': {
@@ -61,7 +69,7 @@ const Comment = (props) => {
                                 {username}
                             </Typography>
                         }
-                        subheader={<Typography>{createdAt}</Typography>}
+                        subheader={<Typography>{timeAgo}</Typography>}
                     />
                     <CardContent
                         sx={{

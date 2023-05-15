@@ -9,7 +9,7 @@ import {
 import { useReducer } from 'react'
 import AddComment from './components/AddComment'
 import Comment from './components/Comment'
-import data from './data/data.json'
+import data from './data/data'
 
 let theme = createTheme({
     breakpoints: {
@@ -52,13 +52,27 @@ let theme = createTheme({
 
 theme = responsiveFontSizes(theme)
 
+const TYPES = {
+    ADDED: Symbol('Add a comment'),
+    EDITED: Symbol('Update a comment'),
+    DELETED: Symbol('Delete a shopping list item'),
+}
+
 function commentsReducer(comments, action) {
-    // switch (action.type) {
-    // }
+    switch (action.type) {
+        case TYPES.ADDED: {
+            const newComments = [...comments, action.newComment]
+
+            return newComments
+        }
+    }
 }
 
 function App() {
     const [comments, dispatch] = useReducer(commentsReducer, data.comments)
+
+    const addComment = (newComment) =>
+        dispatch({ type: TYPES.ADDED, newComment })
 
     return (
         <ThemeProvider theme={theme}>
@@ -74,10 +88,17 @@ function App() {
             >
                 <List>
                     {comments.map((comment) => (
-                        <Comment key={comment.id} comment={comment} />
+                        <Comment
+                            key={comment.id}
+                            comment={comment}
+                            currentUsername={data.currentUser.username}
+                        />
                     ))}
                 </List>
-                <AddComment />
+                <AddComment
+                    addComment={addComment}
+                    currentUser={data.currentUser}
+                />
             </Container>
         </ThemeProvider>
     )

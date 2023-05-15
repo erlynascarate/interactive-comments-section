@@ -8,11 +8,11 @@ import {
     ListItem,
     Typography,
 } from '@mui/material'
+import getTimeSinceComment from '../utils/getTimeSinceComment'
 import ReplyButton from './ReplyButton'
 import ToggleButtons from './ToggleButtons'
 
 const Reply = (props) => {
-    console.log(props.reply)
     const {
         content = '',
         createdAt = '',
@@ -20,6 +20,8 @@ const Reply = (props) => {
         score = 0,
         user: { username = '' },
     } = props.reply
+
+    const timeAgo = getTimeSinceComment(createdAt)
 
     return (
         <ListItem
@@ -64,7 +66,7 @@ const Reply = (props) => {
                                 {username}
                             </Typography>
                         }
-                        subheader={<Typography>{createdAt}</Typography>}
+                        subheader={<Typography>{timeAgo}</Typography>}
                     />
                     <CardContent
                         sx={{
