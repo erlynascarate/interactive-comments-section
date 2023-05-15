@@ -7,6 +7,7 @@ import {
     ThemeProvider,
 } from '@mui/material'
 import { useReducer } from 'react'
+import AddComment from './components/AddComment'
 import Comment from './components/Comment'
 import data from './data/data.json'
 
@@ -64,7 +65,8 @@ function App() {
             <CssBaseline />
             <Container
                 sx={{
-                    paddingBlock: 2,
+                    paddingBlockStart: { xs: 2, sm: 3, md: 5 },
+                    paddingBlockEnd: { xs: 3, sm: 4, md: 6 },
                     paddingInline: { sm: 2 },
                 }}
                 disableGutters
@@ -75,6 +77,7 @@ function App() {
                         <Comment key={comment.id} comment={comment} />
                     ))}
                 </List>
+                <AddComment />
             </Container>
         </ThemeProvider>
     )
