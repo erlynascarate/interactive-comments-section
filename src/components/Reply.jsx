@@ -9,7 +9,7 @@ import {
     Typography,
 } from '@mui/material'
 import getTimeSinceComment from '../utils/getTimeSinceComment'
-import ReplyButton from './ReplyButton'
+import CommentButtons from './CommentButtons'
 import ToggleButtons from './ToggleButtons'
 
 const Reply = (props) => {
@@ -52,8 +52,10 @@ const Reply = (props) => {
                         }}
                         avatar={<Avatar />}
                         action={
-                            <ReplyButton
+                            <CommentButtons
                                 display={{ xs: 'none', sm: 'inline-flex' }}
+                                currentUsername={props.currentUsername}
+                                username={username}
                             />
                         }
                         title={
@@ -99,7 +101,10 @@ const Reply = (props) => {
                     }}
                 >
                     <ToggleButtons score={score} />
-                    <ReplyButton />
+                    <CommentButtons
+                        currentUsername={props.currentUsername}
+                        username={username}
+                    />
                 </CardActions>
             </Card>
         </ListItem>
