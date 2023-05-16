@@ -54,7 +54,7 @@ theme = responsiveFontSizes(theme)
 
 const TYPES = {
     ADDED: Symbol('Add a comment'),
-    EDITED: Symbol('Update a comment'),
+    EDITED: Symbol('Edit a comment'),
     DELETED: Symbol('Delete a shopping list item'),
 }
 

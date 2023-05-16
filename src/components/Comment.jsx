@@ -11,7 +11,7 @@ import {
 } from '@mui/material'
 import getTimeSinceComment from '../utils/getTimeSinceComment'
 import Reply from './Reply'
-import ReplyButton from './ReplyButton'
+import CommentButtons from './CommentButtons'
 import ToggleButtons from './ToggleButtons'
 
 const Comment = (props) => {
@@ -55,8 +55,10 @@ const Comment = (props) => {
                         }}
                         avatar={<Avatar />}
                         action={
-                            <ReplyButton
+                            <CommentButtons
                                 display={{ xs: 'none', sm: 'inline-flex' }}
+                                currentUsername={props.currentUsername}
+                                username={username}
                             />
                         }
                         title={
@@ -93,13 +95,20 @@ const Comment = (props) => {
                     }}
                 >
                     <ToggleButtons score={score} />
-                    <ReplyButton />
+                    <CommentButtons
+                        currentUsername={props.currentUsername}
+                        username={username}
+                    />
                 </CardActions>
             </Card>
             {thereIsReply && (
                 <List sx={{ paddingBlock: 2, paddingInlineStart: { md: 5 } }}>
                     {replies.map((reply) => (
-                        <Reply key={reply.id} reply={reply} />
+                        <Reply
+                            key={reply.id}
+                            currentUsername={props.currentUsername}
+                            reply={reply}
+                        />
                     ))}
                 </List>
             )}
