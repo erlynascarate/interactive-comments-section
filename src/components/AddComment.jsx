@@ -66,7 +66,7 @@ const AddComment = (props) => {
                 <Button
                     sx={{
                         '&:hover': {
-                            bgcolor: 'primaryHover.main',
+                            bgcolor: 'primary.hover',
                         },
                     }}
                     size='large'

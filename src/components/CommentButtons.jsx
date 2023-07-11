@@ -36,15 +36,12 @@ const CommentButtons = (props) => {
             <Box sx={{ display, flexWrap: 'wrap', justifyContent: 'end' }}>
                 <CustomButton
                     color='warning'
-                    hover='warningHover.main'
+                    hover='warning.hover'
                     icon={() => <DeleteIcon />}
                 >
                     Detele
                 </CustomButton>
-                <CustomButton
-                    hover='primaryHover.main'
-                    icon={() => <EditIcon />}
-                >
+                <CustomButton hover='primary.hover' icon={() => <EditIcon />}>
                     Edit
                 </CustomButton>
             </Box>
@@ -53,7 +50,7 @@ const CommentButtons = (props) => {
     return (
         <CustomButton
             display={display}
-            hover='primaryHover.main'
+            hover='primary.hover'
             icon={() => <ReplyIcon />}
         >
             Reply

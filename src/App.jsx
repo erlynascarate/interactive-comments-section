@@ -30,15 +30,11 @@ let theme = createTheme({
         },
         primary: {
             main: 'hsl(238, 40%, 52%)',
-        },
-        primaryHover: {
-            main: 'hsl(239, 57%, 85%)',
+            hover: 'hsl(239, 57%, 85%)',
         },
         warning: {
             main: 'hsl(358, 79%, 66%)',
-        },
-        warningHover: {
-            main: 'hsl(357, 100%, 86%)',
+            hover: 'hsl(357, 100%, 86%)',
         },
         text: {
             primary: 'hsl(211, 10%, 45%)',
