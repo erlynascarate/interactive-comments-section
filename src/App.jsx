@@ -1,3 +1,4 @@
+import useInitialState from './hooks/useInitialState'
 import {
     Container,
     createTheme,
@@ -6,10 +7,8 @@ import {
     responsiveFontSizes,
     ThemeProvider,
 } from '@mui/material'
-import { useReducer } from 'react'
 import AddComment from './components/AddComment'
 import Comment from './components/Comment'
-import data from './data/data'
 
 let theme = createTheme({
     breakpoints: {
@@ -48,27 +47,8 @@ let theme = createTheme({
 
 theme = responsiveFontSizes(theme)
 
-const TYPES = {
-    ADDED: Symbol('Add a comment'),
-    EDITED: Symbol('Edit a comment'),
-    DELETED: Symbol('Delete a shopping list item'),
-}
-
-function commentsReducer(comments, action) {
-    switch (action.type) {
-        case TYPES.ADDED: {
-            const newComments = [...comments, action.newComment]
-
-            return newComments
-        }
-    }
-}
-
 function App() {
-    const [comments, dispatch] = useReducer(commentsReducer, data.comments)
-
-    const addComment = (newComment) =>
-        dispatch({ type: TYPES.ADDED, newComment })
+    const { currentUser, comments, addComment, editComment } = useInitialState()
 
     return (
         <ThemeProvider theme={theme}>
@@ -87,14 +67,12 @@ function App() {
                         <Comment
                             key={comment.id}
                             comment={comment}
-                            currentUsername={data.currentUser.username}
+                            editComment={editComment}
+                            currentUsername={currentUser.username}
                         />
                     ))}
                 </List>
-                <AddComment
-                    addComment={addComment}
-                    currentUser={data.currentUser}
-                />
+                <AddComment addComment={addComment} currentUser={currentUser} />
             </Container>
         </ThemeProvider>
     )

@@ -57,6 +57,7 @@ const AddComment = (props) => {
                     maxRows={5}
                     minRows={3}
                     name='content'
+                    required
                 />
                 <Avatar
                     sx={{

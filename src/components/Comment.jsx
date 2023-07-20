@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import {
     Avatar,
     Box,
@@ -7,21 +8,43 @@ import {
     CardHeader,
     List,
     ListItem,
+    TextField,
     Typography,
 } from '@mui/material'
-import getTimeSinceComment from '../utils/getTimeSinceComment'
 import Reply from './Reply'
 import CommentButtons from './CommentButtons'
 import ToggleButtons from './ToggleButtons'
+import getTimeSinceComment from '../utils/getTimeSinceComment'
 
 const Comment = (props) => {
+    const [edit, setEdit] = useState(false)
+
+    const openEdit = () => setEdit(true)
+    const closeEdit = () => setEdit(false)
+
+    const { comment, currentUsername, editComment } = props
+
     const {
-        content = '',
-        createdAt = '',
+        content,
+        createdAt,
         replies,
-        score = 0,
-        user: { username = '' },
-    } = props.comment
+        score,
+        user: { username },
+    } = comment
+
+    const handleSubmit = (event) => {
+        event.preventDefault()
+
+        const content = event.target.content.value
+
+        const editedComment = {
+            ...comment,
+            content,
+        }
+
+        editComment(editedComment)
+        closeEdit()
+    }
 
     const timeAgo = getTimeSinceComment(createdAt)
 
@@ -30,6 +53,7 @@ const Comment = (props) => {
     return (
         <ListItem sx={{ flexDirection: 'column' }}>
             <Card
+                onSubmit={handleSubmit}
                 sx={{
                     display: 'flex',
                     flexDirection: { xs: 'column', sm: 'row-reverse' },
@@ -39,6 +63,7 @@ const Comment = (props) => {
                     bgcolor: 'common.white',
                     boxShadow: 'none',
                 }}
+                component='form'
             >
                 <Box
                     sx={{
@@ -57,7 +82,10 @@ const Comment = (props) => {
                         action={
                             <CommentButtons
                                 display={{ xs: 'none', sm: 'inline-flex' }}
-                                currentUsername={props.currentUsername}
+                                edit={edit}
+                                openEdit={openEdit}
+                                closeEdit={closeEdit}
+                                currentUsername={currentUsername}
                                 username={username}
                             />
                         }
@@ -81,7 +109,16 @@ const Comment = (props) => {
                             },
                         }}
                     >
-                        <Typography>{content}</Typography>
+                        {edit && (
+                            <TextField
+                                defaultValue={content}
+                                fullWidth
+                                multiline
+                                name='content'
+                                required
+                            />
+                        )}
+                        {!edit && <Typography>{content}</Typography>}
                     </CardContent>
                 </Box>
 
@@ -96,17 +133,21 @@ const Comment = (props) => {
                 >
                     <ToggleButtons score={score} />
                     <CommentButtons
-                        currentUsername={props.currentUsername}
+                        edit={edit}
+                        openEdit={openEdit}
+                        closeEdit={closeEdit}
+                        currentUsername={currentUsername}
                         username={username}
                     />
                 </CardActions>
             </Card>
+
             {thereIsReply && (
                 <List sx={{ paddingBlock: 2, paddingInlineStart: { md: 5 } }}>
                     {replies.map((reply) => (
                         <Reply
                             key={reply.id}
-                            currentUsername={props.currentUsername}
+                            currentUsername={currentUsername}
                             reply={reply}
                         />
                     ))}
