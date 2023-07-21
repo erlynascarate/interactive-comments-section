@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import {
     Avatar,
     Box,
@@ -6,20 +7,56 @@ import {
     CardContent,
     CardHeader,
     ListItem,
+    TextField,
     Typography,
 } from '@mui/material'
-import getTimeSinceComment from '../utils/getTimeSinceComment'
 import CommentButtons from './CommentButtons'
 import ToggleButtons from './ToggleButtons'
 
+import getTimeSinceComment from '../utils/getTimeSinceComment'
+
 const Reply = (props) => {
+    const { comment, currentUsername, editComment, reply } = props
+
     const {
-        content = '',
-        createdAt = '',
+        content,
+        createdAt,
         replyingTo,
-        score = 0,
-        user: { username = '' },
-    } = props.reply
+        score,
+        user: { username },
+    } = reply
+
+    const [edit, setEdit] = useState(false)
+
+    const openEdit = () => setEdit(true)
+    const closeEdit = () => setEdit(false)
+
+    const handleSubmit = (event) => {
+        event.preventDefault()
+
+        const content = event.target.content.value
+
+        const editedReply = {
+            ...reply,
+            content,
+        }
+
+        const replies = comment.replies.map((reply) => {
+            if (reply.id === editedReply.id) {
+                return editedReply
+            }
+
+            return reply
+        })
+
+        const editedComment = {
+            ...comment,
+            replies,
+        }
+
+        editComment(editedComment)
+        closeEdit()
+    }
 
     const timeAgo = getTimeSinceComment(createdAt)
 
@@ -32,16 +69,22 @@ const Reply = (props) => {
             }}
         >
             <Card
+                onSubmit={handleSubmit}
                 sx={{
                     display: 'flex',
                     flexDirection: { xs: 'column', sm: 'row-reverse' },
                     borderRadius: 3,
                     padding: { md: 1 },
-                    bgcolor: 'common.white',
+                    inlineSize: '100%',
                     boxShadow: 'none',
                 }}
+                component='form'
             >
-                <Box>
+                <Box
+                    sx={{
+                        flexGrow: 1,
+                    }}
+                >
                     <CardHeader
                         sx={{
                             '& .MuiCardHeader-content': {
@@ -54,7 +97,10 @@ const Reply = (props) => {
                         action={
                             <CommentButtons
                                 display={{ xs: 'none', sm: 'inline-flex' }}
-                                currentUsername={props.currentUsername}
+                                edit={edit}
+                                openEdit={openEdit}
+                                closeEdit={closeEdit}
+                                currentUsername={currentUsername}
                                 username={username}
                             />
                         }
@@ -78,16 +124,27 @@ const Reply = (props) => {
                             },
                         }}
                     >
-                        <Typography>
-                            <Typography
-                                color='primary'
-                                component='span'
-                                fontWeight={700}
-                            >
-                                @{replyingTo}
-                            </Typography>{' '}
-                            {content}
-                        </Typography>
+                        {edit && (
+                            <TextField
+                                defaultValue={content}
+                                fullWidth
+                                multiline
+                                name='content'
+                                required
+                            />
+                        )}
+                        {!edit && (
+                            <Typography>
+                                <Typography
+                                    color='primary'
+                                    component='span'
+                                    fontWeight={700}
+                                >
+                                    @{replyingTo}
+                                </Typography>{' '}
+                                {content}
+                            </Typography>
+                        )}
                     </CardContent>
                 </Box>
 
@@ -102,7 +159,10 @@ const Reply = (props) => {
                 >
                     <ToggleButtons score={score} />
                     <CommentButtons
-                        currentUsername={props.currentUsername}
+                        edit={edit}
+                        openEdit={openEdit}
+                        closeEdit={closeEdit}
+                        currentUsername={currentUsername}
                         username={username}
                     />
                 </CardActions>

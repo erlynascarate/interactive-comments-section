@@ -14,14 +14,10 @@ import {
 import Reply from './Reply'
 import CommentButtons from './CommentButtons'
 import ToggleButtons from './ToggleButtons'
+
 import getTimeSinceComment from '../utils/getTimeSinceComment'
 
 const Comment = (props) => {
-    const [edit, setEdit] = useState(false)
-
-    const openEdit = () => setEdit(true)
-    const closeEdit = () => setEdit(false)
-
     const { comment, currentUsername, editComment } = props
 
     const {
@@ -31,6 +27,11 @@ const Comment = (props) => {
         score,
         user: { username },
     } = comment
+
+    const [edit, setEdit] = useState(false)
+
+    const openEdit = () => setEdit(true)
+    const closeEdit = () => setEdit(false)
 
     const handleSubmit = (event) => {
         event.preventDefault()
@@ -60,7 +61,6 @@ const Comment = (props) => {
                     borderRadius: 3,
                     padding: { md: 1 },
                     inlineSize: '100%',
-                    bgcolor: 'common.white',
                     boxShadow: 'none',
                 }}
                 component='form'
@@ -147,7 +147,9 @@ const Comment = (props) => {
                     {replies.map((reply) => (
                         <Reply
                             key={reply.id}
+                            comment={comment}
                             currentUsername={currentUsername}
+                            editComment={editComment}
                             reply={reply}
                         />
                     ))}
