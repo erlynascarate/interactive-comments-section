@@ -64,7 +64,7 @@ const CommentButtons = (props) => {
         edit,
         openEdit,
         closeEdit,
-        reply,
+        openReply,
         toggleReply,
         username,
     } = props
@@ -114,7 +114,7 @@ const CommentButtons = (props) => {
 
     return (
         <>
-            {reply && (
+            {openReply && (
                 <CustomButton
                     event={toggleReply}
                     display={display}
@@ -124,7 +124,7 @@ const CommentButtons = (props) => {
                     Cancel
                 </CustomButton>
             )}
-            {!reply && (
+            {!openReply && (
                 <CustomButton
                     event={toggleReply}
                     display={display}

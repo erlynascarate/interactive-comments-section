@@ -12,11 +12,19 @@ import {
 } from '@mui/material'
 import CommentButtons from './CommentButtons'
 import ToggleButtons from './ToggleButtons'
+import AddReply from './AddReply'
 
 import getTimeSinceComment from '../utils/getTimeSinceComment'
 
 const Reply = (props) => {
-    const { comment, currentUsername, editComment, reply } = props
+    const {
+        addReply,
+        comment,
+        currentUser,
+        currentUsername,
+        editComment,
+        reply,
+    } = props
 
     const {
         content,
@@ -27,9 +35,12 @@ const Reply = (props) => {
     } = reply
 
     const [edit, setEdit] = useState(false)
+    const [openReply, setOpenReply] = useState(false)
 
     const openEdit = () => setEdit(true)
     const closeEdit = () => setEdit(false)
+
+    const toggleReply = () => setOpenReply(!openReply)
 
     const handleSubmit = (event) => {
         event.preventDefault()
@@ -63,6 +74,9 @@ const Reply = (props) => {
     return (
         <ListItem
             sx={{
+                flexDirection: 'column',
+                alignItems: 'stretch',
+                rowGap: 1,
                 borderInlineStart: '2px solid hsl(223, 19%, 93%)',
                 paddingInlineStart: { sm: 4, md: 5 },
                 paddingInlineEnd: 0,
@@ -100,6 +114,8 @@ const Reply = (props) => {
                                 edit={edit}
                                 openEdit={openEdit}
                                 closeEdit={closeEdit}
+                                openReply={openReply}
+                                toggleReply={toggleReply}
                                 currentUsername={currentUsername}
                                 username={username}
                             />
@@ -162,11 +178,23 @@ const Reply = (props) => {
                         edit={edit}
                         openEdit={openEdit}
                         closeEdit={closeEdit}
+                        openReply={openReply}
+                        toggleReply={toggleReply}
                         currentUsername={currentUsername}
                         username={username}
                     />
                 </CardActions>
             </Card>
+
+            {openReply && (
+                <AddReply
+                    addReply={addReply}
+                    comment={comment}
+                    currentUser={currentUser}
+                    replyingTo={username}
+                    toggleReply={toggleReply}
+                />
+            )}
         </ListItem>
     )
 }

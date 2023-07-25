@@ -76,7 +76,9 @@ function App() {
                             render={(reply) => (
                                 <Reply
                                     key={reply.id}
+                                    addReply={addReply}
                                     comment={comment}
+                                    currentUser={currentUser}
                                     currentUsername={currentUser.username}
                                     editComment={editComment}
                                     reply={reply}

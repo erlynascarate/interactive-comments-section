@@ -36,12 +36,12 @@ const Comment = (props) => {
     } = comment
 
     const [edit, setEdit] = useState(false)
-    const [reply, setReply] = useState(false)
+    const [openReply, setOpenReply] = useState(false)
 
     const openEdit = () => setEdit(true)
     const closeEdit = () => setEdit(false)
 
-    const toggleReply = () => setReply(!reply)
+    const toggleReply = () => setOpenReply(!openReply)
 
     const handleSubmit = (event) => {
         event.preventDefault()
@@ -97,7 +97,7 @@ const Comment = (props) => {
                                 edit={edit}
                                 openEdit={openEdit}
                                 closeEdit={closeEdit}
-                                reply={reply}
+                                openReply={openReply}
                                 toggleReply={toggleReply}
                                 currentUsername={currentUsername}
                                 username={username}
@@ -150,7 +150,7 @@ const Comment = (props) => {
                         edit={edit}
                         openEdit={openEdit}
                         closeEdit={closeEdit}
-                        reply={reply}
+                        openReply={openReply}
                         toggleReply={toggleReply}
                         currentUsername={currentUsername}
                         username={username}
@@ -158,7 +158,7 @@ const Comment = (props) => {
                 </CardActions>
             </Card>
 
-            {reply && (
+            {openReply && (
                 <AddReply
                     addReply={addReply}
                     comment={comment}
