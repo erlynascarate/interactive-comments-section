@@ -1,7 +1,7 @@
 import { Avatar, Button, Card, CardContent, TextField } from '@mui/material'
 
-const AddComment = (props) => {
-    const { addComment, currentUser } = props
+const AddReply = (props) => {
+    const { addReply, comment, currentUser, replyingTo, toggleReply } = props
 
     const handleSubmit = (event) => {
         event.preventDefault()
@@ -11,25 +11,31 @@ const AddComment = (props) => {
         const content = form.content.value
         const createdAt = new Date()
 
-        const newComment = {
+        const reply = {
             id,
             content,
             createdAt,
+            replyingTo,
             score: 0,
             user: currentUser,
-            replies: [],
         }
 
-        addComment(newComment)
+        const replies = [...comment.replies, reply]
 
-        form.reset()
+        const editedComment = {
+            ...comment,
+            replies,
+        }
+
+        addReply(editedComment)
+
+        toggleReply()
     }
 
     return (
         <Card
             onSubmit={handleSubmit}
             sx={{
-                marginInline: 2,
                 borderRadius: 3,
                 padding: { md: 1 },
                 boxShadow: 'none',
@@ -51,6 +57,7 @@ const AddComment = (props) => {
                         flexGrow: 1,
                         inlineSize: { xs: '100%', sm: 'auto' },
                     }}
+                    autoFocus
                     label='Add a comment'
                     multiline
                     maxRows={5}
@@ -80,4 +87,4 @@ const AddComment = (props) => {
     )
 }
 
-export default AddComment
+export default AddReply

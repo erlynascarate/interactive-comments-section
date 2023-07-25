@@ -11,14 +11,21 @@ import {
     TextField,
     Typography,
 } from '@mui/material'
-import Reply from './Reply'
 import CommentButtons from './CommentButtons'
 import ToggleButtons from './ToggleButtons'
+import AddReply from './AddReply'
 
 import getTimeSinceComment from '../utils/getTimeSinceComment'
 
 const Comment = (props) => {
-    const { comment, currentUsername, editComment } = props
+    const {
+        addReply,
+        comment,
+        currentUser,
+        currentUsername,
+        editComment,
+        render,
+    } = props
 
     const {
         content,
@@ -29,9 +36,12 @@ const Comment = (props) => {
     } = comment
 
     const [edit, setEdit] = useState(false)
+    const [reply, setReply] = useState(false)
 
     const openEdit = () => setEdit(true)
     const closeEdit = () => setEdit(false)
+
+    const toggleReply = () => setReply(!reply)
 
     const handleSubmit = (event) => {
         event.preventDefault()
@@ -52,7 +62,9 @@ const Comment = (props) => {
     const thereIsReply = replies.length > 0
 
     return (
-        <ListItem sx={{ flexDirection: 'column' }}>
+        <ListItem
+            sx={{ flexDirection: 'column', alignItems: 'stretch', rowGap: 1 }}
+        >
             <Card
                 onSubmit={handleSubmit}
                 sx={{
@@ -85,6 +97,8 @@ const Comment = (props) => {
                                 edit={edit}
                                 openEdit={openEdit}
                                 closeEdit={closeEdit}
+                                reply={reply}
+                                toggleReply={toggleReply}
                                 currentUsername={currentUsername}
                                 username={username}
                             />
@@ -136,23 +150,27 @@ const Comment = (props) => {
                         edit={edit}
                         openEdit={openEdit}
                         closeEdit={closeEdit}
+                        reply={reply}
+                        toggleReply={toggleReply}
                         currentUsername={currentUsername}
                         username={username}
                     />
                 </CardActions>
             </Card>
 
+            {reply && (
+                <AddReply
+                    addReply={addReply}
+                    comment={comment}
+                    currentUser={currentUser}
+                    replyingTo={username}
+                    toggleReply={toggleReply}
+                />
+            )}
+
             {thereIsReply && (
-                <List sx={{ paddingBlock: 2, paddingInlineStart: { md: 5 } }}>
-                    {replies.map((reply) => (
-                        <Reply
-                            key={reply.id}
-                            comment={comment}
-                            currentUsername={currentUsername}
-                            editComment={editComment}
-                            reply={reply}
-                        />
-                    ))}
+                <List sx={{ paddingBlock: 1, paddingInlineStart: { md: 5 } }}>
+                    {replies.map(render)}
                 </List>
             )}
         </ListItem>

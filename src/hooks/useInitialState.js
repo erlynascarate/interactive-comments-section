@@ -37,12 +37,15 @@ const useInitialState = () => {
     const addComment = (newComment) =>
         dispatch({ type: TYPES.ADDED, newComment })
 
+    const addReply = (comment) => dispatch({ type: TYPES.EDITED, comment })
+
     const editComment = (comment) => dispatch({ type: TYPES.EDITED, comment })
 
     return {
         currentUser: data.currentUser,
         comments,
         addComment,
+        addReply,
         editComment,
     }
 }

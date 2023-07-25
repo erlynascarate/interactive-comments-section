@@ -64,6 +64,8 @@ const CommentButtons = (props) => {
         edit,
         openEdit,
         closeEdit,
+        reply,
+        toggleReply,
         username,
     } = props
 
@@ -111,13 +113,28 @@ const CommentButtons = (props) => {
         )
 
     return (
-        <CustomButton
-            display={display}
-            hover='primary.hover'
-            icon={() => <ReplyIcon />}
-        >
-            Reply
-        </CustomButton>
+        <>
+            {reply && (
+                <CustomButton
+                    event={toggleReply}
+                    display={display}
+                    color='warning'
+                    hover='warning.hover'
+                >
+                    Cancel
+                </CustomButton>
+            )}
+            {!reply && (
+                <CustomButton
+                    event={toggleReply}
+                    display={display}
+                    hover='primary.hover'
+                    icon={() => <ReplyIcon />}
+                >
+                    Reply
+                </CustomButton>
+            )}
+        </>
     )
 }
 

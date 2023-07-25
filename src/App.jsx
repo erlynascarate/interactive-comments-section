@@ -7,8 +7,9 @@ import {
     responsiveFontSizes,
     ThemeProvider,
 } from '@mui/material'
-import AddComment from './components/AddComment'
 import Comment from './components/Comment'
+import Reply from './components/Reply'
+import AddComment from './components/AddComment'
 
 let theme = createTheme({
     breakpoints: {
@@ -48,7 +49,8 @@ let theme = createTheme({
 theme = responsiveFontSizes(theme)
 
 function App() {
-    const { currentUser, comments, addComment, editComment } = useInitialState()
+    const { addComment, addReply, currentUser, comments, editComment } =
+        useInitialState()
 
     return (
         <ThemeProvider theme={theme}>
@@ -66,9 +68,20 @@ function App() {
                     {comments.map((comment) => (
                         <Comment
                             key={comment.id}
+                            addReply={addReply}
                             comment={comment}
                             editComment={editComment}
+                            currentUser={currentUser}
                             currentUsername={currentUser.username}
+                            render={(reply) => (
+                                <Reply
+                                    key={reply.id}
+                                    comment={comment}
+                                    currentUsername={currentUser.username}
+                                    editComment={editComment}
+                                    reply={reply}
+                                />
+                            )}
                         />
                     ))}
                 </List>
