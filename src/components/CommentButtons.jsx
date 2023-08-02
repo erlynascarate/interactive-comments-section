@@ -60,12 +60,13 @@ const CustomButton = (props) => {
 const CommentButtons = (props) => {
     const {
         display = { xs: 'inline-flex', sm: 'none' },
-        currentUsername,
         edit,
         openEdit,
         closeEdit,
         openReply,
         toggleReply,
+        deleteComment,
+        currentUsername,
         username,
     } = props
 
@@ -83,6 +84,7 @@ const CommentButtons = (props) => {
                 )}
                 {!edit && (
                     <CustomButton
+                        event={deleteComment}
                         color='warning'
                         hover='warning.hover'
                         icon={() => <DeleteIcon />}

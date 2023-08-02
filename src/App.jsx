@@ -10,6 +10,7 @@ import {
 import Comment from './components/Comment'
 import Reply from './components/Reply'
 import AddComment from './components/AddComment'
+import AlertDialog from './components/AlertDialog'
 
 let theme = createTheme({
     breakpoints: {
@@ -25,9 +26,6 @@ let theme = createTheme({
         fontFamily: 'Rubik, sans-serif',
     },
     palette: {
-        common: {
-            white: 'hsl(0, 0%, 100%)',
-        },
         primary: {
             main: 'hsl(238, 40%, 52%)',
             hover: 'hsl(239, 57%, 85%)',
@@ -46,11 +44,31 @@ let theme = createTheme({
     },
 })
 
+theme = createTheme(theme, {
+    palette: {
+        cancel: theme.palette.augmentColor({
+            color: {
+                main: 'hsl(211, 10%, 45%)',
+            },
+            name: 'cancel',
+        }),
+    },
+})
+
 theme = responsiveFontSizes(theme)
 
 function App() {
-    const { addComment, addReply, currentUser, comments, editComment } =
-        useInitialState()
+    const {
+        open,
+        openDialog,
+        closeDialog,
+        addComment,
+        addReply,
+        currentUser,
+        comments,
+        editComment,
+        deleteComment,
+    } = useInitialState()
 
     return (
         <ThemeProvider theme={theme}>
@@ -71,6 +89,7 @@ function App() {
                             addReply={addReply}
                             comment={comment}
                             editComment={editComment}
+                            openDialog={openDialog}
                             currentUser={currentUser}
                             currentUsername={currentUser.username}
                             render={(reply) => (
@@ -81,6 +100,7 @@ function App() {
                                     currentUser={currentUser}
                                     currentUsername={currentUser.username}
                                     editComment={editComment}
+                                    openDialog={openDialog}
                                     reply={reply}
                                 />
                             )}
@@ -89,6 +109,11 @@ function App() {
                 </List>
                 <AddComment addComment={addComment} currentUser={currentUser} />
             </Container>
+            <AlertDialog
+                open={open}
+                closeDialog={closeDialog}
+                deleteComment={deleteComment}
+            />
         </ThemeProvider>
     )
 }

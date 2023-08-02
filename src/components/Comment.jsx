@@ -24,6 +24,7 @@ const Comment = (props) => {
         currentUser,
         currentUsername,
         editComment,
+        openDialog,
         render,
     } = props
 
@@ -56,6 +57,8 @@ const Comment = (props) => {
         editComment(editedComment)
         closeEdit()
     }
+
+    const deleteComment = () => openDialog(comment)
 
     const timeAgo = getTimeSinceComment(createdAt)
 
@@ -99,6 +102,7 @@ const Comment = (props) => {
                                 closeEdit={closeEdit}
                                 openReply={openReply}
                                 toggleReply={toggleReply}
+                                deleteComment={deleteComment}
                                 currentUsername={currentUsername}
                                 username={username}
                             />
@@ -152,6 +156,7 @@ const Comment = (props) => {
                         closeEdit={closeEdit}
                         openReply={openReply}
                         toggleReply={toggleReply}
+                        deleteComment={deleteComment}
                         currentUsername={currentUsername}
                         username={username}
                     />

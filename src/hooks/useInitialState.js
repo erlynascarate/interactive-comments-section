@@ -1,10 +1,10 @@
-import { useReducer } from 'react'
+import { useReducer, useState } from 'react'
 import data from '../data/data'
 
 const TYPES = {
     ADDED: Symbol('Add a comment'),
     EDITED: Symbol('Edit a comment'),
-    DELETED: Symbol('Delete a shopping list item'),
+    DELETED: Symbol('Delete a comment'),
 }
 
 function commentsReducer(comments, action) {
@@ -28,10 +28,19 @@ function commentsReducer(comments, action) {
 
             return editedList
         }
+
+        case TYPES.DELETED: {
+            const updatedList = comments.filter(
+                (comment) => comment.id !== action.comment.id
+            )
+
+            return updatedList
+        }
     }
 }
 
 const useInitialState = () => {
+    const [open, setOpen] = useState({ value: false })
     const [comments, dispatch] = useReducer(commentsReducer, data.comments)
 
     const addComment = (newComment) =>
@@ -41,12 +50,24 @@ const useInitialState = () => {
 
     const editComment = (comment) => dispatch({ type: TYPES.EDITED, comment })
 
+    const deleteComment = () => {
+        dispatch({ type: TYPES.DELETED, comment: open.comment })
+        closeDialog()
+    }
+
+    const openDialog = (comment) => setOpen({ value: true, comment })
+    const closeDialog = () => setOpen({ value: false })
+
     return {
+        open,
+        openDialog,
+        closeDialog,
         currentUser: data.currentUser,
         comments,
         addComment,
         addReply,
         editComment,
+        deleteComment,
     }
 }
 
