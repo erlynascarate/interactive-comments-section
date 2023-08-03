@@ -6,6 +6,7 @@ import {
     CardActions,
     CardContent,
     CardHeader,
+    Collapse,
     List,
     ListItem,
     TextField,
@@ -14,6 +15,7 @@ import {
 import CommentButtons from './CommentButtons'
 import ToggleButtons from './ToggleButtons'
 import AddReply from './AddReply'
+import { TransitionGroup } from 'react-transition-group'
 
 import getTimeSinceComment from '../utils/getTimeSinceComment'
 
@@ -163,7 +165,7 @@ const Comment = (props) => {
                 </CardActions>
             </Card>
 
-            {openReply && (
+            <Collapse in={openReply}>
                 <AddReply
                     addReply={addReply}
                     comment={comment}
@@ -171,11 +173,11 @@ const Comment = (props) => {
                     replyingTo={username}
                     toggleReply={toggleReply}
                 />
-            )}
+            </Collapse>
 
             {thereIsReply && (
                 <List sx={{ paddingBlock: 1, paddingInlineStart: { md: 5 } }}>
-                    {replies.map(render)}
+                    <TransitionGroup>{replies.map(render)}</TransitionGroup>
                 </List>
             )}
         </ListItem>

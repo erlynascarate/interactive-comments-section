@@ -1,5 +1,6 @@
 import useInitialState from './hooks/useInitialState'
 import {
+    Collapse,
     Container,
     createTheme,
     CssBaseline,
@@ -11,6 +12,7 @@ import Comment from './components/Comment'
 import Reply from './components/Reply'
 import AddComment from './components/AddComment'
 import AlertDialog from './components/AlertDialog'
+import { TransitionGroup } from 'react-transition-group'
 
 let theme = createTheme({
     breakpoints: {
@@ -84,32 +86,41 @@ function App() {
                 maxWidth='md'
             >
                 <List>
-                    {comments.map((comment) => (
-                        <Comment
-                            key={comment.id}
-                            addReply={addReply}
-                            comment={comment}
-                            editComment={editComment}
-                            openDialog={openDialog}
-                            currentUser={currentUser}
-                            currentUsername={currentUser.username}
-                            render={(reply) => (
-                                <Reply
-                                    key={reply.id}
+                    <TransitionGroup>
+                        {comments.map((comment) => (
+                            <Collapse key={comment.id}>
+                                <Comment
                                     addReply={addReply}
                                     comment={comment}
+                                    editComment={editComment}
+                                    openDialog={openDialog}
                                     currentUser={currentUser}
                                     currentUsername={currentUser.username}
-                                    editComment={editComment}
-                                    openDialogFromReply={openDialogFromReply}
-                                    reply={reply}
+                                    render={(reply) => (
+                                        <Collapse key={reply.id}>
+                                            <Reply
+                                                addReply={addReply}
+                                                comment={comment}
+                                                currentUser={currentUser}
+                                                currentUsername={
+                                                    currentUser.username
+                                                }
+                                                editComment={editComment}
+                                                openDialogFromReply={
+                                                    openDialogFromReply
+                                                }
+                                                reply={reply}
+                                            />
+                                        </Collapse>
+                                    )}
                                 />
-                            )}
-                        />
-                    ))}
+                            </Collapse>
+                        ))}
+                    </TransitionGroup>
                 </List>
                 <AddComment addComment={addComment} currentUser={currentUser} />
             </Container>
+
             <AlertDialog
                 open={open}
                 closeDialog={closeDialog}

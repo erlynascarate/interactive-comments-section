@@ -16,7 +16,7 @@ const AlertDialog = (props) => {
     ]
 
     return (
-        <Dialog maxWidth='xs' open={open.value}>
+        <Dialog open={open.value} onClose={closeDialog} maxWidth='xs'>
             <DialogTitle color='textSecondary'>Delete comment</DialogTitle>
             <DialogContent>
                 <DialogContentText color='textPrimary'>

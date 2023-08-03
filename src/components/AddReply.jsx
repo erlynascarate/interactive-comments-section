@@ -30,6 +30,7 @@ const AddReply = (props) => {
         addReply(editedComment)
 
         toggleReply()
+        form.reset()
     }
 
     return (
@@ -57,7 +58,6 @@ const AddReply = (props) => {
                         flexGrow: 1,
                         inlineSize: { xs: '100%', sm: 'auto' },
                     }}
-                    autoFocus
                     label='Add a comment'
                     multiline
                     maxRows={5}

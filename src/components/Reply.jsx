@@ -6,6 +6,7 @@ import {
     CardActions,
     CardContent,
     CardHeader,
+    Collapse,
     ListItem,
     TextField,
     Typography,
@@ -202,7 +203,7 @@ const Reply = (props) => {
                 </CardActions>
             </Card>
 
-            {openReply && (
+            <Collapse in={openReply}>
                 <AddReply
                     addReply={addReply}
                     comment={comment}
@@ -210,7 +211,7 @@ const Reply = (props) => {
                     replyingTo={username}
                     toggleReply={toggleReply}
                 />
-            )}
+            </Collapse>
         </ListItem>
     )
 }
