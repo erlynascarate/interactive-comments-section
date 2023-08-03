@@ -23,6 +23,7 @@ const Reply = (props) => {
         currentUser,
         currentUsername,
         editComment,
+        openDialogFromReply,
         reply,
     } = props
 
@@ -67,6 +68,19 @@ const Reply = (props) => {
 
         editComment(editedComment)
         closeEdit()
+    }
+
+    const deleteComment = () => {
+        const replies = comment.replies.filter(
+            (commentReply) => commentReply.id !== reply.id
+        )
+
+        const editedComment = {
+            ...comment,
+            replies,
+        }
+
+        openDialogFromReply(editedComment)
     }
 
     const timeAgo = getTimeSinceComment(createdAt)
@@ -116,6 +130,7 @@ const Reply = (props) => {
                                 closeEdit={closeEdit}
                                 openReply={openReply}
                                 toggleReply={toggleReply}
+                                deleteComment={deleteComment}
                                 currentUsername={currentUsername}
                                 username={username}
                             />
@@ -180,6 +195,7 @@ const Reply = (props) => {
                         closeEdit={closeEdit}
                         openReply={openReply}
                         toggleReply={toggleReply}
+                        deleteComment={deleteComment}
                         currentUsername={currentUsername}
                         username={username}
                     />

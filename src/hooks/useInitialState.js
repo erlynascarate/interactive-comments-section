@@ -18,7 +18,7 @@ function commentsReducer(comments, action) {
         case TYPES.EDITED: {
             const editedComment = action.comment
 
-            const editedList = comments.map((comment) => {
+            const editedComments = comments.map((comment) => {
                 if (comment.id === editedComment.id) {
                     return editedComment
                 }
@@ -26,15 +26,15 @@ function commentsReducer(comments, action) {
                 return comment
             })
 
-            return editedList
+            return editedComments
         }
 
         case TYPES.DELETED: {
-            const updatedList = comments.filter(
+            const updatedComments = comments.filter(
                 (comment) => comment.id !== action.comment.id
             )
 
-            return updatedList
+            return updatedComments
         }
     }
 }
@@ -51,16 +51,24 @@ const useInitialState = () => {
     const editComment = (comment) => dispatch({ type: TYPES.EDITED, comment })
 
     const deleteComment = () => {
-        dispatch({ type: TYPES.DELETED, comment: open.comment })
+        open.reply
+            ? dispatch({ type: TYPES.EDITED, comment: open.comment })
+            : dispatch({ type: TYPES.DELETED, comment: open.comment })
+
         closeDialog()
     }
 
-    const openDialog = (comment) => setOpen({ value: true, comment })
+    const openDialog = (comment) =>
+        setOpen({ value: true, comment, reply: false })
+    const openDialogFromReply = (comment) =>
+        setOpen({ value: true, comment, reply: true })
+
     const closeDialog = () => setOpen({ value: false })
 
     return {
         open,
         openDialog,
+        openDialogFromReply,
         closeDialog,
         currentUser: data.currentUser,
         comments,

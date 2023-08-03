@@ -61,6 +61,7 @@ function App() {
     const {
         open,
         openDialog,
+        openDialogFromReply,
         closeDialog,
         addComment,
         addReply,
@@ -100,7 +101,7 @@ function App() {
                                     currentUser={currentUser}
                                     currentUsername={currentUser.username}
                                     editComment={editComment}
-                                    openDialog={openDialog}
+                                    openDialogFromReply={openDialogFromReply}
                                     reply={reply}
                                 />
                             )}
