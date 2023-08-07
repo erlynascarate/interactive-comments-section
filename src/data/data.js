@@ -1,8 +1,7 @@
 const data = {
     currentUser: {
         image: {
-            png: './assets/avatars/image-juliusomo.png',
-            webp: './assets/avatars/image-juliusomo.webp',
+            png: './avatars/image-juliusomo.png',
         },
         username: 'juliusomo',
     },
@@ -14,8 +13,7 @@ const data = {
             score: 12,
             user: {
                 image: {
-                    png: './assets/avatars/image-amyrobson.png',
-                    webp: './assets/avatars/image-amyrobson.webp',
+                    png: './avatars/image-amyrobson.png',
                 },
                 username: 'amyrobson',
             },
@@ -28,8 +26,7 @@ const data = {
             score: 5,
             user: {
                 image: {
-                    png: './assets/avatars/image-maxblagun.png',
-                    webp: './assets/avatars/image-maxblagun.webp',
+                    png: './avatars/image-maxblagun.png',
                 },
                 username: 'maxblagun',
             },
@@ -42,8 +39,7 @@ const data = {
                     replyingTo: 'maxblagun',
                     user: {
                         image: {
-                            png: './assets/avatars/image-ramsesmiron.png',
-                            webp: './assets/avatars/image-ramsesmiron.webp',
+                            png: './avatars/image-ramsesmiron.png',
                         },
                         username: 'ramsesmiron',
                     },
@@ -56,8 +52,7 @@ const data = {
                     replyingTo: 'ramsesmiron',
                     user: {
                         image: {
-                            png: './assets/avatars/image-juliusomo.png',
-                            webp: './assets/avatars/image-juliusomo.webp',
+                            png: './avatars/image-juliusomo.png',
                         },
                         username: 'juliusomo',
                     },

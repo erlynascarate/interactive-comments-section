@@ -33,7 +33,7 @@ const Reply = (props) => {
         createdAt,
         replyingTo,
         score,
-        user: { username },
+        user: { image, username },
     } = reply
 
     const [edit, setEdit] = useState(false)
@@ -122,7 +122,7 @@ const Reply = (props) => {
                                 columnGap: 2,
                             },
                         }}
-                        avatar={<Avatar />}
+                        avatar={<Avatar src={image.png} />}
                         action={
                             <CommentButtons
                                 display={{ xs: 'none', sm: 'inline-flex' }}

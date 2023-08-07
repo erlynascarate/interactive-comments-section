@@ -2,6 +2,7 @@ import { Avatar, Button, Card, CardContent, TextField } from '@mui/material'
 
 const AddReply = (props) => {
     const { addReply, comment, currentUser, replyingTo, toggleReply } = props
+    const { image } = currentUser
 
     const handleSubmit = (event) => {
         event.preventDefault()
@@ -69,6 +70,7 @@ const AddReply = (props) => {
                     sx={{
                         order: { sm: '-1' },
                     }}
+                    src={image.png}
                 />
                 <Button
                     sx={{

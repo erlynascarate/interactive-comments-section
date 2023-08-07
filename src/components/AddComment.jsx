@@ -2,6 +2,7 @@ import { Avatar, Button, Card, CardContent, TextField } from '@mui/material'
 
 const AddComment = (props) => {
     const { addComment, currentUser } = props
+    const { image } = currentUser
 
     const handleSubmit = (event) => {
         event.preventDefault()
@@ -62,6 +63,7 @@ const AddComment = (props) => {
                     sx={{
                         order: { sm: '-1' },
                     }}
+                    src={image.png}
                 />
                 <Button
                     sx={{

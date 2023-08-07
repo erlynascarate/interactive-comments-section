@@ -35,7 +35,7 @@ const Comment = (props) => {
         createdAt,
         replies,
         score,
-        user: { username },
+        user: { image, username },
     } = comment
 
     const [edit, setEdit] = useState(false)
@@ -95,7 +95,7 @@ const Comment = (props) => {
                                 columnGap: 2,
                             },
                         }}
-                        avatar={<Avatar />}
+                        avatar={<Avatar src={image.png} />}
                         action={
                             <CommentButtons
                                 display={{ xs: 'none', sm: 'inline-flex' }}
