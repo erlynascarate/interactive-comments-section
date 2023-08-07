@@ -1,7 +1,7 @@
+import { useState } from 'react'
 import { ToggleButton, ToggleButtonGroup, Typography } from '@mui/material'
 import AddIcon from '@mui/icons-material/Add'
 import RemoveIcon from '@mui/icons-material/Remove'
-import { useState } from 'react'
 
 const ToggleButtons = ({ score }) => {
     const [alignment, setAlignment] = useState(null)
@@ -31,8 +31,8 @@ const ToggleButtons = ({ score }) => {
             </ToggleButton>
             <Typography
                 sx={{
-                    blockSize: 36,
-                    inlineSize: 36,
+                    height: 36,
+                    width: 36,
                     fontWeight: 700,
                     textAlign: 'center',
                     lineHeight: 2.5,

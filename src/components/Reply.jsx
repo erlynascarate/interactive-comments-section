@@ -92,9 +92,9 @@ const Reply = (props) => {
                 flexDirection: 'column',
                 alignItems: 'stretch',
                 rowGap: 1,
-                borderInlineStart: '2px solid hsl(223, 19%, 93%)',
-                paddingInlineStart: { sm: 4, md: 5 },
-                paddingInlineEnd: 0,
+                borderLeft: '2px solid hsl(223, 19%, 93%)',
+                pl: { sm: 4, md: 5 },
+                pr: 0,
             }}
         >
             <Card
@@ -103,8 +103,8 @@ const Reply = (props) => {
                     display: 'flex',
                     flexDirection: { xs: 'column', sm: 'row-reverse' },
                     borderRadius: 3,
-                    padding: { md: 1 },
-                    inlineSize: '100%',
+                    p: { md: 1 },
+                    width: '100%',
                     boxShadow: 'none',
                 }}
                 component='form'
@@ -150,9 +150,9 @@ const Reply = (props) => {
                     />
                     <CardContent
                         sx={{
-                            paddingBlockStart: 0,
+                            pt: 0,
                             '&:last-child': {
-                                paddingBlockEnd: 2,
+                                pb: 2,
                             },
                         }}
                     >
@@ -166,7 +166,7 @@ const Reply = (props) => {
                             />
                         )}
                         {!edit && (
-                            <Typography>
+                            <Typography sx={{ overflowWrap: 'anywhere' }}>
                                 <Typography
                                     color='primary'
                                     component='span'
@@ -184,9 +184,9 @@ const Reply = (props) => {
                     sx={{
                         justifyContent: 'space-between',
                         alignItems: { sm: 'start' },
-                        padding: 2,
-                        paddingBlockStart: { xs: 0, sm: 2 },
-                        paddingInlineEnd: { xs: 2, sm: 0, md: 1 },
+                        p: 2,
+                        pt: { xs: 0, sm: 2 },
+                        pr: { xs: 2, sm: 0, md: 1 },
                     }}
                 >
                     <ToggleButtons score={score} />

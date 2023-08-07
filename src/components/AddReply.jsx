@@ -38,7 +38,7 @@ const AddReply = (props) => {
             onSubmit={handleSubmit}
             sx={{
                 borderRadius: 3,
-                padding: { md: 1 },
+                p: { md: 1 },
                 boxShadow: 'none',
             }}
             component='form'
@@ -56,7 +56,7 @@ const AddReply = (props) => {
                 <TextField
                     sx={{
                         flexGrow: 1,
-                        inlineSize: { xs: '100%', sm: 'auto' },
+                        width: { xs: '100%', sm: 'auto' },
                     }}
                     label='Add a comment'
                     multiline

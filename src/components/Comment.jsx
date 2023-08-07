@@ -76,8 +76,8 @@ const Comment = (props) => {
                     display: 'flex',
                     flexDirection: { xs: 'column', sm: 'row-reverse' },
                     borderRadius: 3,
-                    padding: { md: 1 },
-                    inlineSize: '100%',
+                    p: { md: 1 },
+                    width: '100%',
                     boxShadow: 'none',
                 }}
                 component='form'
@@ -123,9 +123,9 @@ const Comment = (props) => {
                     />
                     <CardContent
                         sx={{
-                            paddingBlockStart: 0,
+                            pt: 0,
                             '&:last-child': {
-                                paddingBlockEnd: 2,
+                                pb: 2,
                             },
                         }}
                     >
@@ -138,7 +138,11 @@ const Comment = (props) => {
                                 required
                             />
                         )}
-                        {!edit && <Typography>{content}</Typography>}
+                        {!edit && (
+                            <Typography sx={{ overflowWrap: 'anywhere' }}>
+                                {content}
+                            </Typography>
+                        )}
                     </CardContent>
                 </Box>
 
@@ -146,9 +150,9 @@ const Comment = (props) => {
                     sx={{
                         justifyContent: 'space-between',
                         alignItems: { sm: 'start' },
-                        padding: 2,
-                        paddingBlockStart: { xs: 0, sm: 2 },
-                        paddingInlineEnd: { xs: 2, sm: 0, md: 1 },
+                        p: 2,
+                        pt: { xs: 0, sm: 2 },
+                        pr: { sm: 0, md: 1 },
                     }}
                 >
                     <ToggleButtons score={score} />
@@ -176,7 +180,7 @@ const Comment = (props) => {
             </Collapse>
 
             {thereIsReply && (
-                <List sx={{ paddingBlock: 1, paddingInlineStart: { md: 5 } }}>
+                <List sx={{ pl: { md: 5 } }}>
                     <TransitionGroup>{replies.map(render)}</TransitionGroup>
                 </List>
             )}

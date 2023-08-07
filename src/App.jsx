@@ -78,9 +78,13 @@ function App() {
             <CssBaseline />
             <Container
                 sx={{
-                    paddingBlockStart: { xs: 2, sm: 3, md: 5 },
-                    paddingBlockEnd: { xs: 3, sm: 4, md: 6 },
-                    paddingInline: { sm: 2 },
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'space-between',
+                    pt: { xs: 2, sm: 3, md: 5 },
+                    pb: { xs: 3, sm: 4, md: 6 },
+                    px: { sm: 2 },
+                    minHeight: '100vh',
                 }}
                 disableGutters
                 maxWidth='md'

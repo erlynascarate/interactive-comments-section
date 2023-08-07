@@ -29,9 +29,9 @@ const AddComment = (props) => {
         <Card
             onSubmit={handleSubmit}
             sx={{
-                marginInline: 2,
+                mx: 2,
                 borderRadius: 3,
-                padding: { md: 1 },
+                p: { md: 1 },
                 boxShadow: 'none',
             }}
             component='form'
@@ -49,7 +49,7 @@ const AddComment = (props) => {
                 <TextField
                     sx={{
                         flexGrow: 1,
-                        inlineSize: { xs: '100%', sm: 'auto' },
+                        width: { xs: '100%', sm: 'auto' },
                     }}
                     label='Add a comment'
                     multiline

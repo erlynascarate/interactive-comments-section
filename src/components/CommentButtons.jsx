@@ -41,7 +41,7 @@ const CustomButton = (props) => {
             onClick={event}
             sx={{
                 display,
-                marginInlineStart: 1,
+                ml: 1,
                 '&:hover': {
                     color: hover,
                 },
